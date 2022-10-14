@@ -28,10 +28,11 @@ def pdf2image(pdf_path):
 def image2mp4(output_dir, video_name):
     image_files = sorted(glob.glob(f"{output_dir}/*.jpg"))
     height, width, _ = cv2.imread(image_files[0]).shape[:3]
-    video_writer = cv2.VideoWriter(
-        f"{output_dir}/{video_name}.mp4",
-        cv2.VideoWriter_fourcc('m','p','4','v'),
-        1.0, (width, height))
+    file_path = f"{output_dir}/{video_name}.mp4"
+    codec = cv2.VideoWriter_fourcc(*'mp4v')
+    fps = 1.0
+
+    video_writer = cv2.VideoWriter(file_path, codec, fps, (width, height))
 
     for image_file in image_files:
         img = cv2.imread(image_file)
